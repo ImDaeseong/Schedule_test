@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp_schedule", "WindowsFormsApp_schedule\WindowsFormsApp_schedule.csproj", "{E53EF313-8647-452E-816E-E117E387EAED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E53EF313-8647-452E-816E-E117E387EAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E53EF313-8647-452E-816E-E117E387EAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E53EF313-8647-452E-816E-E117E387EAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E53EF313-8647-452E-816E-E117E387EAED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD2C911A-2AFD-4000-A133-04F4DFBB5807}
+	EndGlobalSection
+EndGlobal
