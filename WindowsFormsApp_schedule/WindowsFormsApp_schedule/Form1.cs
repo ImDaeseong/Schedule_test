@@ -1,8 +1,8 @@
 ﻿using Quartz;
 using Quartz.Impl;
+using Quartz.Impl.Matchers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,6 +23,11 @@ namespace WindowsFormsApp_schedule
             //초기화
             await InitQuartz();
 
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            scheduler.Shutdown();
         }
 
         private async Task InitQuartz()
@@ -75,28 +80,25 @@ namespace WindowsFormsApp_schedule
         // 현재 실행 중인 스케줄 목록
         private async void button5_Click(object sender, EventArgs e)
         {
-            try
+            // 그룹 리스트
+            IReadOnlyCollection<string> grouplist = await scheduler.GetJobGroupNames();
+            foreach (string group in grouplist)
             {
-                if (scheduler.IsStarted)
-                {
-                    IReadOnlyCollection<IJobExecutionContext> jobs = await scheduler.GetCurrentlyExecutingJobs();
-                    IReadOnlyList<IJobExecutionContext> jobList = jobs.ToList();
+                //Console.WriteLine($"그룹명: {group}");
 
-                    if (jobList.Count > 0)
+                // Job 그룹 내의 Job 목록 가져오기
+                IReadOnlyCollection<JobKey> joblist = await scheduler.GetJobKeys(GroupMatcher<JobKey>.GroupEquals(group));
+                foreach (JobKey jobKey in joblist)
+                {
+                    //Console.WriteLine($"일: {jobKey.Name}, 그룹: {jobKey.Group}");
+
+                    // JobDetail
+                    JobDetailImpl jobDetail = (JobDetailImpl)await scheduler.GetJobDetail(jobKey);
+                    if (jobDetail != null)
                     {
-                        foreach (IJobExecutionContext jobContext in jobList)
-                        {
-                            IJobDetail jobDetail = jobContext.JobDetail;
-                            string jobName = jobDetail.Key.Name;
-                            string jobGroup = jobDetail.Key.Group;
-                            Console.WriteLine($"Name: {jobName}, Group: {jobGroup}");
-                        }
+                        Console.WriteLine($"Description: {jobDetail.Description}, JobDataMap: {jobDetail.JobDataMap}");
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
@@ -144,6 +146,7 @@ namespace WindowsFormsApp_schedule
                 Console.WriteLine($"Error {jobName}: {ex.Message}");
             }
         }
+
     }
 
 
